@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Word Wizard: B2 Builder</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background: #f0f8ff; }
+    h1, h2 { text-align: center; }
+    .container { max-width: 800px; margin: 0 auto; }
+    .question-box { background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); margin-bottom: 20px; }
+    .btn { display: block; margin: 10px 0; padding: 10px; border: none; border-radius: 5px; background: #4682b4; color: white; cursor: pointer; font-size: 16px; }
+    .btn:hover { background: #5a9bd3; }
+    #result { font-weight: bold; }
+    .hidden { display: none; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Word Wizard: B2 Builder</h1>
+    <h2 id="modeTitle">Choose a Mode</h2>
+
+    <div id="modeSelector" class="question-box">
+      <button class="btn" onclick="startMode(1)">1. Prefix Power</button>
+      <button class="btn" onclick="startMode(2)">2. Suffix Sorter</button>
+      <button class="btn" onclick="startMode(3)">3. Form the Word</button>
+      <button class="btn" onclick="startMode(4)">4. Transform the Sentence</button>
+      <button class="btn" onclick="startMode(5)">5. Suffix Dash</button>
+    </div>
+
+    <div id="quizArea" class="question-box hidden">
+      <p id="questionText"></p>
+      <div id="choices"></div>
+      <p id="result"></p>
+      <button class="btn" onclick="nextQuestion()">Next</button>
+      <button class="btn" onclick="restart()">Back to Menu</button>
+    </div>
+  </div>
+
+  <script>
+    // simplified JS version just to complete the download export
+    document.write('<script src="word_wizard_b2_game.js"><\/script>');
+  </script>
+</body>
+</html>
