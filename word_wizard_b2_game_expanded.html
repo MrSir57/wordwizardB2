@@ -38,8 +38,96 @@
   </div>
 
   <script>
-    // simplified JS version just to complete the download export
-    document.write('<script src="word_wizard_b2_game.js"><\/script>');
+    const quizData = {
+      1: [
+        { question: "____happy", choices: ["in-", "dis-", "un-", "ir-"], answer: "un-" },
+        { question: "____regular", choices: ["im-", "un-", "ir-", "in-"], answer: "ir-" },
+        { question: "____logical", choices: ["il-", "un-", "dis-", "ir-"], answer: "il-" },
+        { question: "____possible", choices: ["un-", "im-", "ir-", "in-"], answer: "im-" },
+        { question: "____kind", choices: ["in-", "dis-", "un-", "im-"], answer: "un-" }
+      ],
+      2: [
+        { question: "-ment", choices: ["Noun", "Adjective", "Verb", "Adverb"], answer: "Noun" },
+        { question: "-ly", choices: ["Noun", "Adjective", "Verb", "Adverb"], answer: "Adverb" },
+        { question: "-able", choices: ["Adjective", "Noun", "Adverb", "Verb"], answer: "Adjective" },
+        { question: "-ance", choices: ["Noun", "Verb", "Adjective", "Adverb"], answer: "Noun" },
+        { question: "-ive", choices: ["Adjective", "Verb", "Noun", "Adverb"], answer: "Adjective" }
+      ],
+      3: [
+        { question: "He showed great ____ during the interview. (patient)", choices: ["patience", "patient", "patients", "impatient"], answer: "patience" },
+        { question: "Her ____ was obvious. (absent)", choices: ["absence", "absentness", "absentee", "absently"], answer: "absence" },
+        { question: "The ____ of the mountain was spectacular. (high)", choices: ["height", "highness", "high", "heights"], answer: "height" },
+        { question: "He is very ____ in class. (talk)", choices: ["talkative", "talking", "talky", "talker"], answer: "talkative" },
+        { question: "Their ____ made the event enjoyable. (generous)", choices: ["generosity", "generousness", "generous", "generously"], answer: "generosity" }
+      ],
+      4: [
+        { question: "The solution was effective. (use 'effect')", choices: ["The solution had a strong effect.", "The solution was effect.", "It was effectual.", "It was an effectiveness."], answer: "The solution had a strong effect." },
+        { question: "She responded quickly. (use 'response')", choices: ["Her response was quick.", "She was responseful.", "She gave a responded reply.", "She was quickly responsive."], answer: "Her response was quick." },
+        { question: "The play entertained the audience. (use 'entertainment')", choices: ["The play provided great entertainment.", "The play was an entertain.", "It was an entertainingment.", "It entertain the people."], answer: "The play provided great entertainment." }
+      ],
+      5: [
+        { question: "Complete the noun: achieve → ?", choices: ["achievement", "achieveful", "achieving", "achiever"], answer: "achievement" },
+        { question: "Complete the adjective: beauty → ?", choices: ["beautiful", "beautify", "beautiness", "beauticity"], answer: "beautiful" },
+        { question: "Complete the verb: dark → ?", choices: ["darken", "darkify", "darkate", "darkish"], answer: "darken" },
+        { question: "Complete the noun: decide → ?", choices: ["decision", "decideful", "decidence", "decider"], answer: "decision" },
+        { question: "Complete the adjective: success → ?", choices: ["successful", "successive", "successed", "successly"], answer: "successful" }
+      ]
+    };
+
+    let currentMode = 0;
+    let currentIndex = 0;
+
+    function startMode(mode) {
+      currentMode = mode;
+      currentIndex = 0;
+      document.getElementById('modeSelector').classList.add('hidden');
+      document.getElementById('quizArea').classList.remove('hidden');
+      document.getElementById('modeTitle').textContent = "Mode " + mode + ": " + ["", "Prefix Power", "Suffix Sorter", "Form the Word", "Transform the Sentence", "Suffix Dash"][mode];
+      showQuestion();
+    }
+
+    function showQuestion() {
+      const data = quizData[currentMode][currentIndex];
+      document.getElementById('questionText').textContent = data.question;
+      const choicesDiv = document.getElementById('choices');
+      choicesDiv.innerHTML = '';
+      data.choices.forEach(choice => {
+        const btn = document.createElement('button');
+        btn.textContent = choice;
+        btn.className = 'btn';
+        btn.onclick = () => checkAnswer(choice, data.answer);
+        choicesDiv.appendChild(btn);
+      });
+      document.getElementById('result').textContent = '';
+    }
+
+    function checkAnswer(selected, correct) {
+      const result = document.getElementById('result');
+      if (selected === correct) {
+        result.textContent = "✅ Correct!";
+        result.style.color = "green";
+      } else {
+        result.textContent = "❌ Incorrect. Correct answer: " + correct;
+        result.style.color = "red";
+      }
+    }
+
+    function nextQuestion() {
+      if (currentIndex + 1 < quizData[currentMode].length) {
+        currentIndex++;
+        showQuestion();
+      } else {
+        document.getElementById('questionText').textContent = "🎉 You've completed this mode!";
+        document.getElementById('choices').innerHTML = '';
+        document.getElementById('result').textContent = '';
+      }
+    }
+
+    function restart() {
+      document.getElementById('quizArea').classList.add('hidden');
+      document.getElementById('modeSelector').classList.remove('hidden');
+      document.getElementById('modeTitle').textContent = "Choose a Mode";
+    }
   </script>
 </body>
 </html>
